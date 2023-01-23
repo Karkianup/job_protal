@@ -39,7 +39,7 @@
                                 <label class="form-label" for="default-1-04">Permission</label> <br>
                                 @foreach ($permissions as $permission)
                                     <span style="margin-left:20px">
-                                        <input type="checkbox">
+                                        <input type="checkbox" name="permission_id[]" value="{{ $permission->id }}">
                                         <label>{{ $permission->title }}</label> <br></span>
                                 @endforeach
 

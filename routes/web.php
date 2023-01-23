@@ -43,4 +43,9 @@ Route::namespace('App\Http\Controllers\admin')->middleware('auth')->prefix('admi
 
    //user
    Route::resource('/user',UserController::class)->names('user');
+
+   //profile
+   Route::controller(ProfileController::class)->group(function(){
+    Route::get('/profile','index')->name('profile');
+   });
 });

@@ -848,7 +848,9 @@
                                                 </div>
                                                 <div class="user-info d-none d-md-block">
                                                     <div class="user-status">Administrator</div>
-                                                    <div class="user-name dropdown-indicator">Abu Bin Ishityak</div>
+                                                    <div class="user-name dropdown-indicator">
+                                                        {{ auth()->user()->name }}
+                                                    </div>
                                                 </div>
                                             </div>
                                         </a>
@@ -859,14 +861,14 @@
                                                         <span>AB</span>
                                                     </div>
                                                     <div class="user-info">
-                                                        <span class="lead-text">Abu Bin Ishtiyak</span>
-                                                        <span class="sub-text">info@softnio.com</span>
+                                                        <span class="lead-text">{{ auth()->user()->name }}</span>
+                                                        <span class="sub-text">{{ auth()->user()->email }}</span>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="dropdown-inner">
                                                 <ul class="link-list">
-                                                    <li><a href="html/user-profile-regular.html"><em
+                                                    <li><a href="{{ route('admin.profile') }}"><em
                                                                 class="icon ni ni-user-alt"></em><span>View
                                                                 Profile</span></a></li>
                                                     <li><a href="html/user-profile-setting.html"><em
