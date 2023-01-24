@@ -95,7 +95,7 @@
             });
 
             @if (Session::has('message'))
-        toastr.options.positionClass = 'toast-bottom-right';
+                toastr.options.positionClass = 'toast-bottom-right';
                 toastr.success('{{ Session('message') }}')
             @endif
         });

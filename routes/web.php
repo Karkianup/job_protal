@@ -48,4 +48,12 @@ Route::namespace('App\Http\Controllers\admin')->middleware('auth')->prefix('admi
    Route::controller(ProfileController::class)->group(function(){
     Route::get('/profile','index')->name('profile');
    });
+
+   Route::controller(EmployerController::class)->prefix('employer')->name('employer.')->group(function(){
+        Route::get('','index')->name('index');
+        Route::put('/approval/{employer}','approval')->name('approval');
+        Route::get('/{employer}','show')->name('show');
+        Route::delete('/{employer}','destroy')->name('destroy');
+
+   });
 });

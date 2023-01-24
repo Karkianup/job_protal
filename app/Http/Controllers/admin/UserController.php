@@ -12,7 +12,7 @@ class UserController extends Controller
 {
     public function index()
     {
-        $users=User::select(['id','name','email','is_super_admin'])->orderBy('is_super_admin','desc')->latest()->get();
+        $users=User::with(['role','permission'])->select(['id','name','email','is_super_admin'])->orderBy('is_super_admin','desc')->latest()->get();
         return view('admin.user.index',compact('users'));
     }
 
