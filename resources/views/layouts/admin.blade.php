@@ -20,6 +20,36 @@
 </head>
 
 <body class="nk-body bg-lighter npc-general has-sidebar ">
+
+    {{-- logout Modal --}}
+    <div class="modal fade" tabindex="-1" id="logout">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <a href="#" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <em class="icon ni ni-cross"></em>
+                </a>
+                <div class="modal-header">
+                    <h5 class="modal-title">Are you sure ?</h5>
+                </div>
+                <div class="modal-body">
+                    <p>You will be logged out
+                    </p>
+                </div>
+                <div class="modal-footer bg-light">
+                    <span class="sub-text">
+                        <form method="POST" style="display:inline" action="{{ route('admin.logout') }}">
+                            @csrf
+                            <button class="btn btn-primary">Yes</button>
+                        </form>
+                        <button class="btn btn-danger" id="cancel">No</button>
+
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <div class="nk-app-root">
         <!-- main @s -->
         <div class="nk-main ">
@@ -108,34 +138,37 @@
                                         </li>
                                     </ul><!-- .nk-menu-sub -->
                                 </li><!-- .nk-menu-item -->
-                                <li class="nk-menu-item has-sub">
-                                    <a href="#" class="nk-menu-link nk-menu-toggle">
-                                        <span class="nk-menu-icon"><em class="icon ni ni-users"></em></span>
-                                        <span class="nk-menu-text">User Manage</span>
-                                    </a>
-                                    <ul class="nk-menu-sub">
-                                        <li class="nk-menu-item">
-                                            <a href="{{ route('admin.role.index') }}" class="nk-menu-link"><span
-                                                    class="nk-menu-text">Role</span></a>
-                                        </li>
-                                        <li class="nk-menu-item">
-                                            <a href="{{ route('admin.user.index') }}" class="nk-menu-link"><span
-                                                    class="nk-menu-text">User</span></a>
-                                        </li>
-                                        <li class="nk-menu-item">
-                                            <a href="{{ route('admin.employer.index') }}" class="nk-menu-link"><span
-                                                    class="nk-menu-text">Employer</span></a>
-                                        </li>
-                                        <li class="nk-menu-item">
-                                            <a href="html/user-profile-regular.html" class="nk-menu-link"><span
-                                                    class="nk-menu-text">User Profile - Regular</span></a>
-                                        </li>
-                                        <li class="nk-menu-item">
-                                            <a href="html/user-card.html" class="nk-menu-link"><span
-                                                    class="nk-menu-text">User Contact - Card</span></a>
-                                        </li>
-                                    </ul><!-- .nk-menu-sub -->
-                                </li><!-- .nk-menu-item -->
+
+                                @can('manage-user')
+                                    <li class="nk-menu-item has-sub">
+                                        <a href="#" class="nk-menu-link nk-menu-toggle">
+                                            <span class="nk-menu-icon"><em class="icon ni ni-users"></em></span>
+                                            <span class="nk-menu-text">User Manage</span>
+                                        </a>
+                                        <ul class="nk-menu-sub">
+                                            <li class="nk-menu-item">
+                                                <a href="{{ route('admin.role.index') }}" class="nk-menu-link"><span
+                                                        class="nk-menu-text">Role</span></a>
+                                            </li>
+                                            <li class="nk-menu-item">
+                                                <a href="{{ route('admin.user.index') }}" class="nk-menu-link"><span
+                                                        class="nk-menu-text">User</span></a>
+                                            </li>
+                                            <li class="nk-menu-item">
+                                                <a href="{{ route('admin.employer.index') }}" class="nk-menu-link"><span
+                                                        class="nk-menu-text">Employer</span></a>
+                                            </li>
+                                            <li class="nk-menu-item">
+                                                <a href="{{ route('admin.jobSeeker.index') }}" class="nk-menu-link"><span
+                                                        class="nk-menu-text">Job Seeker</span></a>
+                                            </li>
+                                            <li class="nk-menu-item">
+                                                <a href="html/user-card.html" class="nk-menu-link"><span
+                                                        class="nk-menu-text">User Contact - Card</span></a>
+                                            </li>
+                                        </ul><!-- .nk-menu-sub -->
+                                    </li><!-- .nk-menu-item -->
+                                @endcan
                                 <li class="nk-menu-item has-sub">
                                     <a href="#" class="nk-menu-link nk-menu-toggle">
                                         <span class="nk-menu-icon"><em class="icon ni ni-user-list"></em></span>
@@ -871,7 +904,7 @@
                                                     <li><a href="{{ route('admin.profile') }}"><em
                                                                 class="icon ni ni-user-alt"></em><span>View
                                                                 Profile</span></a></li>
-                                                    <li><a href="html/user-profile-setting.html"><em
+                                                    <li><a href="{{ route('admin.securitySetting') }}"><em
                                                                 class="icon ni ni-setting-alt"></em><span>Account
                                                                 Setting</span></a></li>
                                                     <li><a href="html/user-profile-activity.html"><em
@@ -884,11 +917,15 @@
                                             </div>
                                             <div class="dropdown-inner">
                                                 <ul class="link-list">
-                                                    <li><a href="#"><em
+                                                    <li><a href="#" data-bs-toggle="modal"
+                                                            data-bs-target="#logout"><em
                                                                 class="icon ni ni-signout"></em><span>Sign
                                                                 out</span></a></li>
                                                 </ul>
                                             </div>
+
+
+
                                         </div>
                                     </li><!-- .dropdown -->
                                     <li class="dropdown notification-dropdown me-n1">
@@ -1187,6 +1224,11 @@
     <script src="{{ asset('admin/assets/js/charts/gd-default.js?ver=3.1.2') }}"></script>
     <script src="{{ asset('toastr/toastr.min.js') }}"></script>
     @stack('js')
+    <script>
+        $('#cancel').click(()=>{
+            $('#logout').modal('hide');
+        })
+    </script>
 </body>
 
 </html>

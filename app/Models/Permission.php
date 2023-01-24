@@ -9,7 +9,7 @@ use Illuminate\Support\Str;
 class Permission extends Model
 {
     use HasFactory;
-    public function roles()
+    public function role()
     {
         return $this->belongsToMany(Role::class,'role_has_permission');
     }
@@ -18,7 +18,7 @@ class Permission extends Model
     {
         return $this->belongsToMany(User::class,'user_has_permission');
     }
-    
+
     public function setSlugAttribute($value)
     {
         if(Static::where('slug',Str::slug($value.'-'))->exists()){

@@ -2,7 +2,7 @@
 
 namespace App\Enums;
 
-//enum for whether employer's and jobseeker's account is apporved by admin or not
+//enum for whether employer's and jobseeker's account is approved by admin or not
 enum AccountStatusEnum:int
 {
     case Approve = 1;

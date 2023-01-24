@@ -1,9 +1,9 @@
 @extends('layouts.admin')
 @section('content')
-    <nav aria-label="breadcrumb">
+  <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="#">User Manage</a></li>
-            <li class="breadcrumb-item active"><a href="#">Employer</a></li>
+            <li class="breadcrumb-item active"><a href="#">Job Seeker</a></li>
             {{--  <li class="breadcrumb-item active" aria-current="page">Data</li>  --}}
         </ol>
     </nav>
@@ -32,20 +32,20 @@
 
                     {{-- for pending employee's accounnt --}}
                     <div class="tab-pane active" id="tabItem1">
-                        @include('admin.employer.table.pending', [
-                            'pendingEmployers' => $pendingEmployers,
+                        @include('admin.job-seeker.table.pending', [
+                            'pendingJobSeekers' => $pendingJobSeekers,
                         ]);
                     </div>
 
 
                     <div class="tab-pane" id="tabItem2">
-                        @include('admin.employer.table.approved', [
-                            'approvedEmployers' => $approvedEmployers,
+                        @include('admin.job-seeker.table.approved', [
+                            'approvedJobSeekers' => $approvedJobSeekers,
                         ]);
                     </div>
                     <div class="tab-pane" id="tabItem3">
-                        @include('admin.employer.table.rejected', [
-                            'rejectedEmployers' => $rejectedEmployers,
+                        @include('admin.job-seeker.table.rejected', [
+                            'rejectedJobSeekers' => $rejectedJobSeekers,
                         ]);
 
                     </div>

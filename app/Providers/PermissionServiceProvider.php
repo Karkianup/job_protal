@@ -28,9 +28,11 @@ class PermissionServiceProvider extends ServiceProvider
     {
         Permission::get()->map(function($permission){
             Gate::define($permission->slug,function(User $user) use($permission){
-                foreach($permission as $permissionRole)
-                foreach($user->role as $userRole){
-                    $userRole->id==$permissionRole->id;
+                foreach($permission->role as $permissionRole)
+                {
+                    foreach($user->role as $userRole){
+                        return $userRole->id==$permissionRole->id;
+                    }
                 }
             });
         });
